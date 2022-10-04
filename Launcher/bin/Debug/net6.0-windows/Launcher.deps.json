@@ -1,0 +1,28 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Launcher/1.0.0": {
+        "runtime": {
+          "Launcher.dll": {}
+        },
+        "resources": {
+          "is/Launcher.resources.dll": {
+            "locale": "is"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Launcher/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
