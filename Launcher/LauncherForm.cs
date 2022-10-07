@@ -1,20 +1,25 @@
 using System.Diagnostics;
+using System.Drawing.Text;
+using System.Text.Json;
 
 namespace Launcher
 {
     public partial class LauncherForm : Form
     {
+        private List<File> FFiles  = new List<File>();
+        private const string C_JsonFileName = "Launcher.json";
         public LauncherForm()
         {
             InitializeComponent();
             AttachClickEventToAllButtons();
+            // jsonファイルが存在すれば、デシリアライズ
         }
         private void Button_Clicked(object sender, MouseEventArgs e)
         {
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    App wAppAssociatedToButton = (App)((Button)sender).Tag;
+                    File wAppAssociatedToButton = (File)((Button)sender).Tag;
                     if (wAppAssociatedToButton == null)
                     {
                         MessageBox.Show("まず右クリック押してアプリを登録せえや。");
@@ -27,9 +32,10 @@ namespace Launcher
                     if (wDialog.ShowDialog() == DialogResult.OK)
                     {
                         string wPath = wDialog.FileName;
-                        var wApp = new App(wPath);
-                        ((Button)sender).Tag = wApp;
-                        ((Button)sender).Image = wApp.Icon.ToBitmap();
+                        var wFile = new File(wPath);
+                        ((Button)sender).Tag = wFile;
+                        ((Button)sender).Image = wFile.Icon.ToBitmap();
+                        FFiles.Add(wFile);
                     }
                     break;
             }
@@ -37,6 +43,19 @@ namespace Launcher
         private void AttachClickEventToAllButtons()
         {
             foreach (Button wButton in this.Controls) wButton.MouseDown += Button_Clicked;
+        }
+
+        private void LauncherForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // リストに要素が存在すれば、シリアライズ
+            if (FFiles.Count == 0) return;
+            // TODO ↓のパス指定では例外が発生する。ディレクトリを作っておく必要あり。
+            var wPath = Path.Combine(Environment.SpecialFolder.ApplicationData.ToString(), C_JsonFileName);
+            using (var wWriter = new StreamWriter(wPath))
+            {
+                var wJson = JsonSerializer.Serialize(FFiles);
+                wWriter.Write(wJson);
+            }
         }
     }
 }

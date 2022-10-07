@@ -112,6 +112,7 @@
             this.ForeColor = System.Drawing.Color.White;
             this.MaximizeBox = false;
             this.Name = "LauncherForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LauncherForm_FormClosing);
             this.ResumeLayout(false);
 
         }

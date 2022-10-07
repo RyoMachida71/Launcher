@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "U4yGWAVVVZKdDzb1/y0zgw1GPXydozMoZVqcGfS6PpZW0HXQs3eaQ5slbEN/qGDO1KVli7rqBXeLa2jryprvTg==",
+  "dgSpecHash": "GMyV0TPAzmkYwoqv2Ru5bgpNlBA2o2KXnve89UxPcptsdJ+ddiT1SyBbxYskL+e58uKWLfDh4TQA2KSHmoaNDA==",
   "success": true,
   "projectFilePath": "C:\\Users\\user\\Documents\\Source\\Launcher\\Launcher\\Launcher.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512"
+  ],
   "logs": []
 }
