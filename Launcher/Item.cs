@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Launcher
 {
-    internal class File
+    internal class Item
     {
-        public Icon Icon { get; private set; }
+        [JsonIgnore]
+        public Icon Icon => Icon.ExtractAssociatedIcon(this.Path);
         public string Path { get; private set; }
-        public File(string vPath)
+        public Item(string vPath)
         {
             if (string.IsNullOrEmpty(vPath)) throw new ArgumentException("ファイルパスが不正です");
             this.Path = vPath;
-            this.Icon = Icon.ExtractAssociatedIcon(vPath);
         }
     }
 }
