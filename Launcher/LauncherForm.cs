@@ -6,27 +6,26 @@ namespace Launcher
 {
     public partial class LauncherForm : Form
     {
-        private List<Item> FItems  = new List<Item>();
         private const string C_Directory = @"C:\ProgramData\Launcher";
         private const string C_JsonFileName = @"Launcher.json";
         public LauncherForm()
         {
             InitializeComponent();
             AttachClickEventToAllButtons();
-            // jsonファイルが存在すれば、デシリアライズ
+            Load();
         }
         private void Button_Clicked(object sender, MouseEventArgs e)
         {
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    Item wAppAssociatedToButton = (Item)((Button)sender).Tag;
-                    if (wAppAssociatedToButton == null)
+                    Item wItemAssociatedToButton = (Item)((Button)sender).Tag;
+                    if (wItemAssociatedToButton == null)
                     {
                         MessageBox.Show("まず右クリック押してアプリを登録せえや。");
                         break;
                     }
-                    Process.Start(wAppAssociatedToButton.Path);
+                    Process.Start(wItemAssociatedToButton.Path);
                     break;
                 case MouseButtons.Right:
                     var wDialog = new OpenFileDialog();
@@ -36,8 +35,10 @@ namespace Launcher
                         var wFile = new Item(wPath);
                         ((Button)sender).Tag = wFile;
                         ((Button)sender).Image = wFile.Icon.ToBitmap();
-                        FItems.Add(wFile);
                     }
+                    break;
+                default:
+                    return;
                     break;
             }
         }
@@ -48,19 +49,29 @@ namespace Launcher
 
         private void LauncherForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (FItems.Count == 0) return;
-            Save(Path.Combine(C_Directory, C_JsonFileName));
-            
+            Save();
         }
-        private void Save(string vPath)
+        private void Save()
         {
-            if (string.IsNullOrEmpty(vPath)) return;
-            using (var wStream = File.Create(vPath))
+            var wItems = this.Controls.Cast<Button>().OrderBy(x => x.Top).ThenBy(x => x.Location.X).Select(x => (Item)x.Tag).Where(x => x != null).ToList();
+            if (wItems.Count == 0) return;
+            using (var wStream = File.Create(Path.Combine(C_Directory, C_JsonFileName)))
             using (var wWriter = new StreamWriter(wStream, Encoding.UTF8)) new JsonSerializer
             {
                 Formatting = Formatting.Indented,
-                DefaultValueHandling = DefaultValueHandling.Ignore
-            }.Serialize(wWriter, FItems);
+            }.Serialize(wWriter, wItems);
+        }
+        private void Load()
+        {
+            if (!File.Exists(Path.Combine(C_Directory, C_JsonFileName))) return;
+            var wJson = File.ReadAllText(Path.Combine(C_Directory, C_JsonFileName));
+            var wItems = JsonConvert.DeserializeObject<List<Item>>(wJson);
+            var wButtons = this.Controls.Cast<Button>().OrderBy(x => x.Top).ThenBy(x => x.Location.X).ToArray();
+            for (int i = 0; i < wItems.Count; ++i)
+            {
+                wButtons[i].Tag = wItems[i];
+                wButtons[i].Image = wItems[i].Icon.ToBitmap();
+            }
         }
     }
 }
