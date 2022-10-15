@@ -12,6 +12,7 @@ namespace Launcher
         {
             InitializeComponent();
             AttachClickEventToAllButtons();
+            Directory.CreateDirectory(C_Directory);
             Load();
         }
         private void Button_Clicked(object sender, MouseEventArgs e)
@@ -22,7 +23,7 @@ namespace Launcher
                     Item wItemAssociatedToButton = (Item)((Button)sender).Tag;
                     if (wItemAssociatedToButton == null)
                     {
-                        MessageBox.Show("まず右クリック押してアプリを登録せえや。");
+                        MessageBox.Show("まず右クリック押してファイルを登録せえや。");
                         break;
                     }
                     Process.Start(wItemAssociatedToButton.Path);
@@ -32,13 +33,12 @@ namespace Launcher
                     if (wDialog.ShowDialog() == DialogResult.OK)
                     {
                         string wPath = wDialog.FileName;
-                        var wFile = new Item(wPath);
+                        var wFile = new Item(wPath, ((Button)sender).Location);
                         ((Button)sender).Tag = wFile;
                         ((Button)sender).Image = wFile.Icon.ToBitmap();
                     }
                     break;
                 default:
-                    return;
                     break;
             }
         }
@@ -53,7 +53,7 @@ namespace Launcher
         }
         private void Save()
         {
-            var wItems = this.Controls.Cast<Button>().OrderBy(x => x.Top).ThenBy(x => x.Location.X).Select(x => (Item)x.Tag).Where(x => x != null).ToList();
+            var wItems = this.Controls.Cast<Button>().Select(x => (Item)x.Tag).Where(x => x != null).ToList();
             if (wItems.Count == 0) return;
             using (var wStream = File.Create(Path.Combine(C_Directory, C_JsonFileName)))
             using (var wWriter = new StreamWriter(wStream, Encoding.UTF8)) new JsonSerializer
@@ -66,21 +66,18 @@ namespace Launcher
             if (!File.Exists(Path.Combine(C_Directory, C_JsonFileName))) return;
             var wJson = File.ReadAllText(Path.Combine(C_Directory, C_JsonFileName));
             var wItems = JsonConvert.DeserializeObject<List<Item>>(wJson);
-            var wButtons = this.Controls.Cast<Button>().OrderBy(x => x.Top).ThenBy(x => x.Location.X).ToArray();
+            var wButtons = this.Controls.Cast<Button>().ToArray();
             for (int i = 0; i < wItems.Count; ++i)
             {
-                wButtons[i].Tag = wItems[i];
-                wButtons[i].Image = wItems[i].Icon.ToBitmap();
+                for (int j = 0; j < wButtons.Length; ++j)
+                {
+                    if (wItems[i].Location == wButtons[j].Location)
+                    {
+                        wButtons[j].Tag = wItems[i];
+                        wButtons[j].Image = wItems[i].Icon.ToBitmap();
+                    }
+                }
             }
         }
     }
 }
-/*
-public void Save(string vPath) {
-            using (var wStream = File.Create(vPath))
-            using (var wWriter = new StreamWriter(wStream, Encoding.UTF8)) new JsonSerializer {
-                Formatting = Formatting.Indented,
-                DefaultValueHandling = DefaultValueHandling.Ignore
-            }.Serialize(wWriter, this);
-        }
-*/
