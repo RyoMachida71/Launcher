@@ -127,5 +127,7 @@
         public Button button6;
         public Button button7;
         public Button button8;
+        private ToolStripMenuItem 登録ToolStripMenuItem;
+        private ToolStripMenuItem 削除ToolStripMenuItem;
     }
 }

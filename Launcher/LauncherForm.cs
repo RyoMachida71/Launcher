@@ -29,14 +29,7 @@ namespace Launcher
                     Process.Start(wItemAssociatedToButton.Path);
                     break;
                 case MouseButtons.Right:
-                    var wDialog = new OpenFileDialog();
-                    if (wDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        string wPath = wDialog.FileName;
-                        var wFile = new Item(wPath, ((Button)sender).Location);
-                        ((Button)sender).Tag = wFile;
-                        ((Button)sender).Image = wFile.Icon.ToBitmap();
-                    }
+                    ((Button)sender).ContextMenuStrip = GetContextMenu((Button)sender);
                     break;
                 default:
                     break;
@@ -46,10 +39,31 @@ namespace Launcher
         {
             foreach (Button wButton in this.Controls) wButton.MouseDown += Button_Clicked;
         }
-
+        private ContextMenuStrip GetContextMenu(Button vButton)
+        {
+            var wMenu = new ContextMenuStrip();
+            wMenu.Items.Add("登録", default, (s, e) => RegisterItem(vButton));
+            wMenu.Items.Add("削除", default, (s, e) => RemoveItem(vButton));
+            return wMenu;
+        }
         private void LauncherForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Save();
+        }
+        private void RegisterItem(Button vButton)
+        {
+            var wDialog = new OpenFileDialog();
+            if (wDialog.ShowDialog() == DialogResult.OK)
+            {
+                string wPath = wDialog.FileName;
+                var wFile = new Item(wPath, vButton.Location);
+                vButton.Tag = wFile;
+                vButton.Image = wFile.Icon.ToBitmap();
+            }
+        }
+        private void RemoveItem(Button vButton)
+        {
+            // TODO:削除時に、Itemオブジェクトの所有物をデフォルト化する。
         }
         private void Save()
         {

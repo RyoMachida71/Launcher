@@ -280,10 +280,7 @@
     <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>262, 226</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Launcher</value>
+    <value>284, 261</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>LauncherForm</value>
