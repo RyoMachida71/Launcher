@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace Launcher
@@ -26,7 +27,14 @@ namespace Launcher
                         MessageBox.Show("まず右クリック押してファイルを登録せえや。");
                         break;
                     }
-                    Process.Start(wItemAssociatedToButton.Path);
+                    try
+                    {
+                        Process.Start(wItemAssociatedToButton.Path);
+                    }
+                    catch
+                    {
+                        MessageBox.Show($"ファイルを開けんかったぞ。{Environment.NewLine}確認せえ。");
+                    }
                     break;
                 case MouseButtons.Right:
                     ((Button)sender).ContextMenuStrip = GetContextMenu((Button)sender);
@@ -56,15 +64,17 @@ namespace Launcher
             if (wDialog.ShowDialog() == DialogResult.OK)
             {
                 string wPath = wDialog.FileName;
-                var wFile = new Item(wPath, vButton.Location);
-                vButton.Tag = wFile;
-                vButton.Image = wFile.Icon.ToBitmap();
+                var wItem = new Item(wPath, vButton.Location);
+                vButton.Tag = wItem;
+                vButton.Image = wItem.Icon.ToBitmap();
             }
         }
         private void RemoveItem(Button vButton)
         {
-            // TODO:削除時に、Itemオブジェクトの所有物をデフォルト化する。
+            vButton.Tag = default;
+            vButton.Image = default;
         }
+        #region 保存・ロード処理
         private void Save()
         {
             var wItems = this.Controls.Cast<Button>().Select(x => (Item)x.Tag).Where(x => x != null).ToList();
@@ -81,17 +91,13 @@ namespace Launcher
             var wJson = File.ReadAllText(Path.Combine(C_Directory, C_JsonFileName));
             var wItems = JsonConvert.DeserializeObject<List<Item>>(wJson);
             var wButtons = this.Controls.Cast<Button>().ToArray();
-            for (int i = 0; i < wItems.Count; ++i)
+            foreach (var wItem in wItems)
             {
-                for (int j = 0; j < wButtons.Length; ++j)
-                {
-                    if (wItems[i].Location == wButtons[j].Location)
-                    {
-                        wButtons[j].Tag = wItems[i];
-                        wButtons[j].Image = wItems[i].Icon.ToBitmap();
-                    }
-                }
+                var wButton = wButtons.FirstOrDefault(x => x.Location == wItem.Location);
+                wButton.Tag = wItem;
+                wButton.Image = wItem.Icon.ToBitmap();
             }
         }
+        #endregion
     }
 }
