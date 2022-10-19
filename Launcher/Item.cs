@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Launcher
 {
@@ -22,5 +18,17 @@ namespace Launcher
             Location = vLocation;
         }
         public Item() { }
+        public bool Start()
+        {
+            try
+            {
+                Process.Start(this.Path);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

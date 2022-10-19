@@ -101,20 +101,19 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button8);
             this.ForeColor = System.Drawing.Color.White;
             this.MaximizeBox = false;
             this.Name = "LauncherForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LauncherForm_FormClosing);
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -127,7 +126,5 @@
         public Button button6;
         public Button button7;
         public Button button8;
-        private ToolStripMenuItem 登録ToolStripMenuItem;
-        private ToolStripMenuItem 削除ToolStripMenuItem;
     }
 }

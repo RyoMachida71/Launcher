@@ -21,23 +21,20 @@ namespace Launcher
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    Item wItemAssociatedToButton = (Item)((Button)sender).Tag;
-                    if (wItemAssociatedToButton == null)
+                    Item wItem = (Item)((Button)sender).Tag;
+                    if (wItem == null)
                     {
                         MessageBox.Show("まず右クリック押してファイルを登録せえや。");
                         break;
                     }
-                    try
+                    if (!wItem.Start())
                     {
-                        Process.Start(wItemAssociatedToButton.Path);
-                    }
-                    catch
-                    {
-                        MessageBox.Show($"ファイルを開けんかったぞ。{Environment.NewLine}確認せえ。");
+                        MessageBox.Show($"ファイル開けんかったぞ。{Environment.NewLine}登録してるファイルを確認せえ。");
                     }
                     break;
                 case MouseButtons.Right:
-                    ((Button)sender).ContextMenuStrip = GetContextMenu((Button)sender);
+                    var wButton = (Button)sender;
+                    wButton.ContextMenuStrip = GetContextMenu(wButton);
                     break;
                 default:
                     break;
