@@ -4,5 +4,8 @@
     <Compile Update="LauncherForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="RegisterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

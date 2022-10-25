@@ -22,3 +22,5 @@ C:\Users\user\Documents\Source\Launcher\Launcher\obj\Debug\net6.0-windows\Launch
 C:\Users\user\Documents\Source\Launcher\Launcher\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
 C:\Users\user\Documents\Source\Launcher\Launcher\bin\Debug\net6.0-windows\Newtonsoft.Json.Bson.dll
 C:\Users\user\Documents\Source\Launcher\Launcher\obj\Debug\net6.0-windows\Launcher.csproj.CopyComplete
+C:\Users\user\Documents\Source\Launcher\Launcher\bin\Debug\net6.0-windows\Launcher.dll.config
+C:\Users\user\Documents\Source\Launcher\Launcher\obj\Debug\net6.0-windows\Launcher.RegisterForm.resources

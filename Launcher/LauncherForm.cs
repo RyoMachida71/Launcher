@@ -47,7 +47,7 @@ namespace Launcher
         private ContextMenuStrip GetContextMenu(Button vButton)
         {
             var wMenu = new ContextMenuStrip();
-            wMenu.Items.Add("“o˜^", default, (s, e) => RegisterItem(vButton));
+            wMenu.Items.Add("“o˜^", default, (s, e) => OpenRegister(vButton));
             wMenu.Items.Add("íœ", default, (s, e) => RemoveItem(vButton));
             return wMenu;
         }
@@ -55,16 +55,10 @@ namespace Launcher
         {
             Save();
         }
-        private void RegisterItem(Button vButton)
+        private void OpenRegister(Button vButton)
         {
-            var wDialog = new OpenFileDialog();
-            if (wDialog.ShowDialog() == DialogResult.OK)
-            {
-                string wPath = wDialog.FileName;
-                var wItem = new Item(wPath, vButton.Location);
-                vButton.Tag = wItem;
-                vButton.Image = wItem.Icon.ToBitmap();
-            }
+            var wRegisterForm = new RegisterForm(vButton);
+            wRegisterForm.ShowDialog();
         }
         private void RemoveItem(Button vButton)
         {
