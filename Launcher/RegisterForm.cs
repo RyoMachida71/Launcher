@@ -38,9 +38,21 @@ namespace Launcher
         }
         private void btnOK_Clicked(object sender, EventArgs e)
         {
-            // ↓の実装ではフォルダのアイコン取得時に例外が発生するため、Itemクラスだけでは無理があるかも、、、
-            // URLが入力されたとき用のクラスも必要かも
-            var wItem = new Item(this.txtItem.Text, FOwnerButton.Location);
+            IItem wItem;
+            var wPath = this.txtItem.Text;
+            var wLocation = FOwnerButton.Location;
+            if (File.Exists(wPath))
+            {
+                wItem = new FileItem(wPath, wLocation);
+            }
+            else if (Directory.Exists(wPath))
+            {
+                wItem = new FolderItem(wPath, wLocation);
+            }
+            else
+            {
+                wItem = new UrlItem(wPath, wLocation);
+            }
             FOwnerButton.Tag = wItem;
             FOwnerButton.Image = wItem.Icon.ToBitmap();
             this.Close();

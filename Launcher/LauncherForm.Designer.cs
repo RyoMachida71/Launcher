@@ -114,6 +114,7 @@
             this.Name = "LauncherForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LauncherForm_FormClosing);
             this.ResumeLayout(false);
+
         }
 
         #endregion
