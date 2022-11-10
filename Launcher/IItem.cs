@@ -1,6 +1,6 @@
 ﻿namespace Launcher
 {
-    internal interface IItem
+    public interface IItem
     {
         Icon Icon { get; }
         string Path { get; }
