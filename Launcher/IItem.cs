@@ -4,6 +4,7 @@
     {
         Icon Icon { get; }
         string Path { get; }
+        string Name { get; }
         Point Location { get; }
         bool Start();
     }

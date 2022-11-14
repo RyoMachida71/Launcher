@@ -9,9 +9,11 @@ namespace Launcher
     internal class UrlItem : IItem
     {
         [JsonIgnore]
-        public Icon Icon => Icon.ExtractAssociatedIcon($@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)}\Microsoft\Edge\Application\msedge.exe");
+        public Icon Icon => WinAPI.GetIcon($@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)}\Microsoft\Edge\Application\msedge.exe");
         [JsonProperty]
         public string Path { get; private set; }
+        [JsonProperty]
+        public string Name => this.Path;
         [JsonProperty]
         public Point Location { get; private set; }
         public UrlItem(string vPath, Point vLocation)
@@ -30,7 +32,7 @@ namespace Launcher
                     FileName = this.Path,
                     UseShellExecute = true,
                 };
-                Process.Start(wInfo);
+                Process.Start(new ProcessStartInfo(){FileName = this.Path, UseShellExecute = true });
                 return true;
             }
             catch

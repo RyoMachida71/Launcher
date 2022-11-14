@@ -55,6 +55,7 @@ namespace Launcher
             }
             FOwnerButton.Tag = wItem;
             FOwnerButton.Image = wItem.Icon.ToBitmap();
+            FOwnerButton.Text = wItem.Name;
             this.Close();
         }
         private void btnCancel_Clicked(object sender, EventArgs e)

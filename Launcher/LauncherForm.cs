@@ -26,12 +26,12 @@ namespace Launcher
                     var wItem = (IItem)((Button)sender).Tag;
                     if (wItem == null)
                     {
-                        MessageBox.Show("まず右クリック押してファイルを登録せえや。");
+                        MessageBox.Show("まず右クリック押してファイルを登録するのだ。");
                         break;
                     }
                     if (!wItem.Start())
                     {
-                        MessageBox.Show($"ファイル開けんかったぞ。{Environment.NewLine}登録してるファイルを確認せえ。");
+                        MessageBox.Show($"ファイル開けぬぞ。{Environment.NewLine}登録してるファイルを確認するのだ。");
                     }
                     break;
                 case MouseButtons.Right:
@@ -66,6 +66,7 @@ namespace Launcher
         {
             vButton.Tag = default;
             vButton.Image = default;
+            vButton.Text = "";
         }
         #region 保存・ロード処理
         private void Save()
@@ -77,19 +78,16 @@ namespace Launcher
         private void SaveFileItem()
         {
             var wFileItems = this.Controls.Cast<Button>().Where(x => x.Tag is FileItem wFileItem && wFileItem != null).Select(x => (FileItem)x.Tag).ToList();
-            if (wFileItems.Count == 0) return;
             ItemSerializer.SaveItem(wFileItems, Path.Combine(C_Directory, C_JsonForFileItem));
         }
         private void SaveFolderItem()
         {
             var wFolderItems = this.Controls.Cast<Button>().Where(x => x.Tag is FolderItem wFolderItem && wFolderItem != null).Select(x => (FolderItem)x.Tag).ToList();
-            if (wFolderItems.Count == 0) return;
             ItemSerializer.SaveItem(wFolderItems, Path.Combine(C_Directory, C_JsonForFolderItem));
         }
         private void SaveUrlItem()
         {
             var wUrlItems = this.Controls.Cast<Button>().Where(x => x.Tag is UrlItem wUrlItem && wUrlItem != null).Select(x => (UrlItem)x.Tag).ToList();
-            if (wUrlItems.Count == 0) return;
             ItemSerializer.SaveItem(wUrlItems, Path.Combine(C_Directory, C_JsonForUrlItem));
         }
         private void Load()
@@ -102,23 +100,19 @@ namespace Launcher
         {
             var wPath = Path.Combine(C_Directory, C_JsonForFileItem);
             if (!File.Exists(wPath)) return;
-            var wItems = ItemSerializer.LoadItem<FileItem>(wPath);
-            var wButtons = this.Controls.Cast<Button>().ToArray();
-            AttachItemToButton(wItems);
+            AttachItemToButton(ItemSerializer.LoadItem<FileItem>(wPath));
         }
         private void LoadFolderItem()
         {
             var wPath = Path.Combine(C_Directory, C_JsonForFolderItem);
             if (!File.Exists(wPath)) return;
-            var wItems = ItemSerializer.LoadItem<FolderItem>(wPath);
-            AttachItemToButton(wItems);
+            AttachItemToButton(ItemSerializer.LoadItem<FolderItem>(wPath));
         }
         private void LoadUrlItem()
         {
             var wPath = Path.Combine(C_Directory, C_JsonForUrlItem);
             if (!File.Exists(wPath)) return;
-            var wItems = ItemSerializer.LoadItem<UrlItem>(wPath);
-            AttachItemToButton(wItems);
+            AttachItemToButton(ItemSerializer.LoadItem<UrlItem>(wPath));
         }
         private void AttachItemToButton<T>(List<T> vItems) where T: IItem
         {
@@ -128,6 +122,7 @@ namespace Launcher
                 var wButton = wButtons.FirstOrDefault(x => x.Location == wItem.Location);
                 wButton.Tag = wItem;
                 wButton.Image = wItem.Icon.ToBitmap();
+                wButton.Text = wItem.Name;
             }
         }
         #endregion
