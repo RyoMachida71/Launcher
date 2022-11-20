@@ -45,6 +45,7 @@
             // 
             // button13
             // 
+            this.button13.AllowDrop = true;
             this.button13.AutoEllipsis = true;
             resources.ApplyResources(this.button13, "button13");
             this.button13.BackColor = System.Drawing.Color.Black;
@@ -54,6 +55,7 @@
             // 
             // button14
             // 
+            this.button14.AllowDrop = true;
             this.button14.AutoEllipsis = true;
             resources.ApplyResources(this.button14, "button14");
             this.button14.BackColor = System.Drawing.Color.Black;
@@ -62,6 +64,7 @@
             // 
             // button1
             // 
+            this.button1.AllowDrop = true;
             this.button1.AutoEllipsis = true;
             resources.ApplyResources(this.button1, "button1");
             this.button1.BackColor = System.Drawing.Color.Black;
@@ -71,6 +74,7 @@
             // 
             // button2
             // 
+            this.button2.AllowDrop = true;
             this.button2.AutoEllipsis = true;
             resources.ApplyResources(this.button2, "button2");
             this.button2.BackColor = System.Drawing.Color.Black;
@@ -79,6 +83,7 @@
             // 
             // button3
             // 
+            this.button3.AllowDrop = true;
             this.button3.AutoEllipsis = true;
             resources.ApplyResources(this.button3, "button3");
             this.button3.BackColor = System.Drawing.Color.Black;
@@ -88,6 +93,7 @@
             // 
             // button4
             // 
+            this.button4.AllowDrop = true;
             this.button4.AutoEllipsis = true;
             resources.ApplyResources(this.button4, "button4");
             this.button4.BackColor = System.Drawing.Color.Black;
@@ -96,6 +102,7 @@
             // 
             // button5
             // 
+            this.button5.AllowDrop = true;
             this.button5.AutoEllipsis = true;
             resources.ApplyResources(this.button5, "button5");
             this.button5.BackColor = System.Drawing.Color.Black;
@@ -105,6 +112,7 @@
             // 
             // button6
             // 
+            this.button6.AllowDrop = true;
             this.button6.AutoEllipsis = true;
             resources.ApplyResources(this.button6, "button6");
             this.button6.BackColor = System.Drawing.Color.Black;
@@ -113,6 +121,7 @@
             // 
             // button7
             // 
+            this.button7.AllowDrop = true;
             this.button7.AutoEllipsis = true;
             resources.ApplyResources(this.button7, "button7");
             this.button7.BackColor = System.Drawing.Color.Black;
@@ -122,6 +131,7 @@
             // 
             // button8
             // 
+            this.button8.AllowDrop = true;
             this.button8.AutoEllipsis = true;
             resources.ApplyResources(this.button8, "button8");
             this.button8.BackColor = System.Drawing.Color.Black;
@@ -130,6 +140,7 @@
             // 
             // button9
             // 
+            this.button9.AllowDrop = true;
             this.button9.AutoEllipsis = true;
             resources.ApplyResources(this.button9, "button9");
             this.button9.BackColor = System.Drawing.Color.Black;
@@ -139,6 +150,7 @@
             // 
             // button10
             // 
+            this.button10.AllowDrop = true;
             this.button10.AutoEllipsis = true;
             resources.ApplyResources(this.button10, "button10");
             this.button10.BackColor = System.Drawing.Color.Black;
