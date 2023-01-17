@@ -1,0 +1,49 @@
+@startuml "シューティングゲームクラス図"
+interface GameHost{
+    view : CreateJs.Stage
+    fighter : GameObject
+    enemies : Map<number, GameObject>
+    bullets : Map<number, GameObject>
+    enemyBullets : Map<number, GameObject>
+    keyInput : KeyInput
+    sceneInfo : string
+}
+class ShootingGame
+interface GameObject{
+    location : CreateJs.Point
+    size : Tize
+    speed : CreateJs.Point
+    lifePoint : number
+    setup() : void
+    setLocation() : void
+    shoot() : void
+    hit() : void
+    finalize() : void
+    reduceLifePoint(value : number) : void
+}
+class CommonGameObject
+interface Weapon{
+    fire(me: GameObject) : void
+}
+class Rapid
+class EnemyRapid
+class FighterFactory
+class BulletFactory
+class EnemyFactory
+
+ShootingGame --|> GameHost
+Rapid --|> Weapon
+EnemyRapid --|> Weapon
+
+FighterFactory --> CommonGameObject
+FighterFactory --> GameHost
+FighterFactory --> Rapid
+EnemyFactory --> CommonGameObject
+EnemyFactory --> GameHost
+EnemyFactory --> EnemyRapid
+BulletFactory --> GameObject
+BulletFactory --> CommonGameObject
+BulletFactory --> GameHost
+CommonGameObject --|> GameObject
+GameHost --o GameObject
+@enduml
