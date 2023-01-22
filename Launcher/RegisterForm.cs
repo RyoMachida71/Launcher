@@ -38,21 +38,10 @@ namespace Launcher
         }
         private void btnOK_Clicked(object sender, EventArgs e)
         {
-            IItem wItem;
             var wPath = this.txtItem.Text;
             var wLocation = FOwnerButton.Location;
-            if (File.Exists(wPath))
-            {
-                wItem = new FileItem(wPath, wLocation);
-            }
-            else if (Directory.Exists(wPath))
-            {
-                wItem = new FolderItem(wPath, wLocation);
-            }
-            else
-            {
-                wItem = new UrlItem(wPath, wLocation);
-            }
+            IItem wItem = ItemFactory.Create(wPath, wLocation);
+            if (wItem == null) return;
             FOwnerButton.Tag = wItem;
             FOwnerButton.Image = wItem.Icon.ToBitmap();
             FOwnerButton.Text = wItem.Name;

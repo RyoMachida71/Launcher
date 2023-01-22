@@ -24,13 +24,10 @@ namespace Launcher
         public FolderItem() { }
         public bool Start()
         {
-            try
-            {
+            try {
                 Process.Start("explorer.exe", this.Path);
                 return true;
-            }
-            catch
-            {
+            } catch {
                 return false;
             }
         }
