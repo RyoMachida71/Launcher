@@ -1,3 +1,5 @@
 .vs
 *.xlsx
 /.vs
+/Launcher/bin
+/Launcher/obj
