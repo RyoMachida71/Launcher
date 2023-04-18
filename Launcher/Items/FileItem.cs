@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
 
-namespace Launcher
+namespace Launcher.Items
 {
     internal class FileItem : IItem
     {
         [JsonIgnore]
-        public Icon Icon => WinAPI.GetIcon(this.Path);
+        public Icon Icon => WinAPI.GetIcon(Path);
         [JsonProperty]
         public string Path { get; private set; }
         [JsonProperty]
@@ -15,9 +15,8 @@ namespace Launcher
         public Point Location { get; private set; }
         public FileItem(string vPath, Point vLocation)
         {
-            if (string.IsNullOrEmpty(vPath)) throw new ArgumentException("ファイルパスが不正です");
-            this.Path = vPath;
-            this.Name = System.IO.Path.GetFileName(this.Path);
+            Path = vPath;
+            Name = System.IO.Path.GetFileName(Path);
             Location = vLocation;
         }
         public FileItem() { }
@@ -25,7 +24,7 @@ namespace Launcher
         {
             try
             {
-                Process.Start(new ProcessStartInfo() { FileName = this.Path, UseShellExecute = true });
+                Process.Start(new ProcessStartInfo() { FileName = Path, UseShellExecute = true });
                 return true;
             }
             catch

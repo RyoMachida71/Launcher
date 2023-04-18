@@ -29,7 +29,7 @@ namespace Launcher
             var wFileInfo = new SHFILEINFO();
             try
             {
-                SHGetFileInfo(vPath, 0, ref wFileInfo, (uint)Marshal.SizeOf(wFileInfo), WinAPI.SHGFI_ICON + WinAPI.SHGFI_SMALLICON);
+                SHGetFileInfo(vPath, 0, ref wFileInfo, (uint)Marshal.SizeOf(wFileInfo), SHGFI_ICON + SHGFI_SMALLICON);
                 if (wFileInfo.hIcon == IntPtr.Zero) return null;
                 else return (Icon)Icon.FromHandle(wFileInfo.hIcon).Clone();
             }

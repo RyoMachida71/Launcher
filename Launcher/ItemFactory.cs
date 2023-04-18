@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Launcher.Items;
 
-namespace Launcher {
+namespace Launcher
+{
     internal class ItemFactory {
         public static IItem Create(string vPath, Point vLocation) {
             if (File.Exists(vPath)) {

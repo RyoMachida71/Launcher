@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Launcher.Items;
 
 namespace Launcher
 {
@@ -39,6 +40,10 @@ namespace Launcher
         private void btnOK_Clicked(object sender, EventArgs e)
         {
             var wPath = this.txtItem.Text;
+            if (string.IsNullOrWhiteSpace(wPath)) {
+                MessageBox.Show("パスまたはURLを入力してください。");
+                return;
+            }
             var wLocation = FOwnerButton.Location;
             IItem wItem = ItemFactory.Create(wPath, wLocation);
             if (wItem == null) return;

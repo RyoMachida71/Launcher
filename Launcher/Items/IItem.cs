@@ -1,4 +1,4 @@
-﻿namespace Launcher
+﻿namespace Launcher.Items
 {
     public interface IItem
     {

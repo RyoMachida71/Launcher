@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Net;
-using System.Security.Policy;
-using System.Windows.Forms.VisualStyles;
 
-namespace Launcher
+namespace Launcher.Items
 {
     internal class UrlItem : IItem
     {
@@ -13,13 +10,12 @@ namespace Launcher
         [JsonProperty]
         public string Path { get; private set; }
         [JsonProperty]
-        public string Name => this.Path;
+        public string Name => Path;
         [JsonProperty]
         public Point Location { get; private set; }
         public UrlItem(string vPath, Point vLocation)
         {
-            if (string.IsNullOrEmpty(vPath)) throw new ArgumentException("ファイルパスが不正です");
-            this.Path = vPath;
+            Path = vPath;
             Location = vLocation;
         }
         public UrlItem() { }
@@ -29,10 +25,10 @@ namespace Launcher
             {
                 var wInfo = new ProcessStartInfo()
                 {
-                    FileName = this.Path,
+                    FileName = Path,
                     UseShellExecute = true,
                 };
-                Process.Start(new ProcessStartInfo(){FileName = this.Path, UseShellExecute = true });
+                Process.Start(new ProcessStartInfo() { FileName = Path, UseShellExecute = true });
                 return true;
             }
             catch
