@@ -10,13 +10,12 @@ namespace Launcher.Items
         [JsonProperty]
         public string Path { get; private set; }
         [JsonProperty]
-        public string Name { get; private set; }
+        public string Name => System.IO.Path.GetFileName(Path);
         [JsonProperty]
         public Point Location { get; private set; }
         public FileItem(string vPath, Point vLocation)
         {
             Path = vPath;
-            Name = System.IO.Path.GetFileName(Path);
             Location = vLocation;
         }
         public FileItem() { }

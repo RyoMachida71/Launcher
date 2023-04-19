@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Launcher.Items;
+﻿using Launcher.Items;
 
 namespace Launcher
 {
     public partial class RegisterForm : Form
     {
-        Button FOwnerButton;
-        public RegisterForm(Button vOwnerButton)
+        Point FItemLocation;
+        Action<IItem> FOnItemCreated;
+
+        public RegisterForm(Point vLocation, Action<IItem> vOnItemCreated)
         {
             InitializeComponent();
-            FOwnerButton = vOwnerButton;
+            FItemLocation = vLocation;
+            FOnItemCreated = vOnItemCreated;
         }
         private void btnFile_Clicked(object sender, EventArgs e)
         {
@@ -44,12 +38,9 @@ namespace Launcher
                 MessageBox.Show("パスまたはURLを入力してください。");
                 return;
             }
-            var wLocation = FOwnerButton.Location;
-            IItem wItem = ItemFactory.Create(wPath, wLocation);
+            var wItem = ItemFactory.Create(wPath, FItemLocation);
             if (wItem == null) return;
-            FOwnerButton.Tag = wItem;
-            FOwnerButton.Image = wItem.Icon.ToBitmap();
-            FOwnerButton.Text = wItem.Name;
+            FOnItemCreated(wItem);
             this.Close();
         }
         private void btnCancel_Clicked(object sender, EventArgs e)

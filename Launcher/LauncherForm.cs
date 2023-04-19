@@ -1,8 +1,4 @@
 using Launcher.Items;
-using Newtonsoft.Json;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 
 namespace Launcher
 {
@@ -60,7 +56,11 @@ namespace Launcher
         }
         private void OpenRegister(Button vButton)
         {
-            var wRegisterForm = new RegisterForm(vButton);
+            var wRegisterForm = new RegisterForm(vButton.Location, (IItem vItem) => {
+                vButton.Tag = vItem;
+                vButton.Image = vItem.Icon.ToBitmap();
+                vButton.Text = vItem.Name;
+            });
             wRegisterForm.ShowDialog();
         }
         private void RemoveItem(Button vButton)

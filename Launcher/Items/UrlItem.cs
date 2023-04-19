@@ -5,8 +5,9 @@ namespace Launcher.Items
 {
     internal class UrlItem : IItem
     {
+        private static string DefaultUrlExe = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)}\Microsoft\Edge\Application\msedge.exe";
         [JsonIgnore]
-        public Icon Icon => WinAPI.GetIcon($@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)}\Microsoft\Edge\Application\msedge.exe");
+        public Icon Icon => WinAPI.GetIcon(DefaultUrlExe);
         [JsonProperty]
         public string Path { get; private set; }
         [JsonProperty]
@@ -23,11 +24,6 @@ namespace Launcher.Items
         {
             try
             {
-                var wInfo = new ProcessStartInfo()
-                {
-                    FileName = Path,
-                    UseShellExecute = true,
-                };
                 Process.Start(new ProcessStartInfo() { FileName = Path, UseShellExecute = true });
                 return true;
             }
